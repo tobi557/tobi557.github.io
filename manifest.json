@@ -1,0 +1,10 @@
+{
+    "name": "Eieruhr",
+    "short_name": "Ei",
+    "theme_color": "#024416",
+    "background_color": "#024416",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/"
+  }

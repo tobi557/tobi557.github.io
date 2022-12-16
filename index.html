@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .background {
+            background-color: #024416;
+        }
+        .center{
+            display: flex;
+            justify-content: center;
+        }
+        .margin-top{
+            margin-top: 90px;
+        }
+        .margin{
+            margin-top: 50px;
+        }
+        .timer {
+            font-size: 60px;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+       
+    </style>
+    <script>
+
+        function wechseln(quelle){
+            document.getElementById ("bild").src = quelle;
+        }
+
+       let alarm = new Audio("snd/alarm.mp3")
+       let timerStarted = false;
+       let timerStop = true;
+
+       function startTimer(){
+        timerStop = !timerStop;
+                wechseln('img/stop.png');
+                let startTime = new Date().getTime();
+                let fiveMinutes = 1000 * 60 * 5;
+                let endTime = startTime + fiveMinutes;
+
+                var myTimer = setInterval( function() {
+                    let timeLeft = endTime - new Date().getTime();
+                        if (!timerStop) {
+                            if (timeLeft > 0) {
+
+                                let minutes = timeLeft / (1000*60);
+                                minutes = Math.floor(minutes);
+                                let seconds = (timeLeft / 1000) % 60; //%60 gibt den Rest an (Modulo)
+                                seconds = Math.round(seconds);
+                                seconds = ("0" + seconds).slice(-2);
+                                let text = "0" + minutes + ":" + seconds;
+                                timer.innerHTML = text; // habe vorher bei dem Container der die Zeit enthält noch id = "timer" hinzugefügt
+                            } else {
+                                timer.innerHTML = "00:00";
+                                alarm.play();
+                            }
+                        } else {
+                           timer.innerHTML = "05:00";
+                           wechseln('img/start.png');
+                           clearInterval(myTimer);                       
+                        }
+                }, 1000);
+        }
+    </script>
+</head>
+
+
+<body class = "background">
+   
+    <div>
+        <img src="img/menu.png"
+        width="15%"
+        height="auto">
+    </div>
+
+
+    <div class="center margin-top">
+        <img src="img/egg.png"
+        width="45%"
+        height="auto">
+    </div>
+
+
+    <div class="center margin timer" id="timer">
+        05:00
+    </div>
+
+
+    <div class="center margin" id = "stop">
+        <img src="img/start.png" id = "bild" onClick="startTimer();"
+        width="40%"
+        height="auto">
+    </div>
+
+</body>
+
+</html>
